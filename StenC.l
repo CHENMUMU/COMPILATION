@@ -19,9 +19,7 @@ entier ({chiffre})+
 
 indent {mot}|{mot}{entier}
 
-int \\INT
-stencil \\STENCIL
-const \\CONST
+
 
 string \"[.]\"                 /*STRING 可以用于什么呢?*/
 
@@ -91,7 +89,7 @@ void count(){
 }
 
 
-
+/*
 
 
 int main(){
@@ -106,3 +104,4 @@ int main(){
     
     return  0;
 }
+*/

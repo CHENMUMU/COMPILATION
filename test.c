@@ -1,3 +1,4 @@
+program
 const int height = 128;
 const int width = 128;
 

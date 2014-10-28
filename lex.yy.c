@@ -8,7 +8,7 @@
 #define FLEX_SCANNER
 #define YY_FLEX_MAJOR_VERSION 2
 #define YY_FLEX_MINOR_VERSION 5
-#define YY_FLEX_SUBMINOR_VERSION 37
+#define YY_FLEX_SUBMINOR_VERSION 35
 #if YY_FLEX_SUBMINOR_VERSION > 0
 #define FLEX_BETA
 #endif
@@ -46,6 +46,7 @@ typedef int16_t flex_int16_t;
 typedef uint16_t flex_uint16_t;
 typedef int32_t flex_int32_t;
 typedef uint32_t flex_uint32_t;
+typedef uint64_t flex_uint64_t;
 #else
 typedef signed char flex_int8_t;
 typedef short int flex_int16_t;
@@ -53,6 +54,7 @@ typedef int flex_int32_t;
 typedef unsigned char flex_uint8_t; 
 typedef unsigned short int flex_uint16_t;
 typedef unsigned int flex_uint32_t;
+#endif /* ! C99 */
 
 /* Limits of integral types. */
 #ifndef INT8_MIN
@@ -82,8 +84,6 @@ typedef unsigned int flex_uint32_t;
 #ifndef UINT32_MAX
 #define UINT32_MAX             (4294967295U)
 #endif
-
-#endif /* ! C99 */
 
 #endif /* ! FLEXINT_H */
 
@@ -355,7 +355,7 @@ static void yy_fatal_error (yyconst char msg[]  );
  */
 #define YY_DO_BEFORE_ACTION \
 	(yytext_ptr) = yy_bp; \
-	yyleng = (size_t) (yy_cp - yy_bp); \
+	yyleng = (yy_size_t) (yy_cp - yy_bp); \
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
@@ -592,7 +592,7 @@ static int input (void );
 /* This used to be an fputs(), but since the string might contain NUL's,
  * we now use fwrite().
  */
-#define ECHO do { if (fwrite( yytext, yyleng, 1, yyout )) {} } while (0)
+#define ECHO fwrite( yytext, yyleng, 1, yyout )
 #endif
 
 /* Gets input and stuffs it into "buf".  number of characters read, or YY_NULL,
@@ -603,7 +603,7 @@ static int input (void );
 	if ( YY_CURRENT_BUFFER_LVALUE->yy_is_interactive ) \
 		{ \
 		int c = '*'; \
-		size_t n; \
+		yy_size_t n; \
 		for ( n = 0; n < max_size && \
 			     (c = getc( yyin )) != EOF && c != '\n'; ++n ) \
 			buf[n] = (char) c; \
@@ -685,7 +685,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 31 "StenC.l"
+#line 28 "StenC.l"
 
 
 #line 692 "lex.yy.c"
@@ -773,158 +773,158 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 33 "StenC.l"
+#line 30 "StenC.l"
 {count();return NUMBER;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 34 "StenC.l"
+#line 31 "StenC.l"
 {count(); return ID;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 37 "StenC.l"
+#line 34 "StenC.l"
 {count();return INT;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 38 "StenC.l"
+#line 35 "StenC.l"
 {count();return STENCIL;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 39 "StenC.l"
+#line 36 "StenC.l"
 {count(); return CONST;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 40 "StenC.l"
+#line 37 "StenC.l"
 {count(); return FUNC_NAME;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 42 "StenC.l"
+#line 39 "StenC.l"
 {count(); return '$';}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 43 "StenC.l"
+#line 40 "StenC.l"
 {count(); return '+';}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 44 "StenC.l"
+#line 41 "StenC.l"
 {count(); return '-';}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 45 "StenC.l"
+#line 42 "StenC.l"
 {count(); return '*';}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 46 "StenC.l"
+#line 43 "StenC.l"
 {count(); return '/';}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 47 "StenC.l"
+#line 44 "StenC.l"
 {count(); return '=';}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 49 "StenC.l"
+#line 46 "StenC.l"
 {count(); return INC_OP;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 50 "StenC.l"
+#line 47 "StenC.l"
 {count(); return DEC_OP;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 51 "StenC.l"
+#line 48 "StenC.l"
 {count(); return EQ_OP; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 54 "StenC.l"
+#line 51 "StenC.l"
 {count(); return IF;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 55 "StenC.l"
+#line 52 "StenC.l"
 {count(); return ELSE;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 56 "StenC.l"
+#line 53 "StenC.l"
 {count(); return FOR;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 57 "StenC.l"
+#line 54 "StenC.l"
 {count(); return WHILE;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 60 "StenC.l"
+#line 57 "StenC.l"
 {count(); return '(';}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 61 "StenC.l"
+#line 58 "StenC.l"
 {count(); return ')';}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 62 "StenC.l"
+#line 59 "StenC.l"
 {count(); return '{';}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 63 "StenC.l"
+#line 60 "StenC.l"
 {count(); return '}';}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 64 "StenC.l"
+#line 61 "StenC.l"
 {count(); return '[';}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 65 "StenC.l"
+#line 62 "StenC.l"
 {count(); return ']';}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 67 "StenC.l"
+#line 64 "StenC.l"
 {count(); return '.';}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 68 "StenC.l"
+#line 65 "StenC.l"
 {count(); return ';';}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 69 "StenC.l"
+#line 66 "StenC.l"
 {count(); return ',';}
 	YY_BREAK
 case 29:
 /* rule 29 can match eol */
 YY_RULE_SETUP
-#line 71 "StenC.l"
+#line 68 "StenC.l"
 {count(); }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 72 "StenC.l"
+#line 69 "StenC.l"
 { /* ignore bad characters */ }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 75 "StenC.l"
+#line 72 "StenC.l"
 ECHO;
 	YY_BREAK
 #line 931 "lex.yy.c"
@@ -1120,7 +1120,7 @@ static int yy_get_next_buffer (void)
 			{ /* Not enough room in the buffer - grow it. */
 
 			/* just a shorter name for the current buffer */
-			YY_BUFFER_STATE b = YY_CURRENT_BUFFER_LVALUE;
+			YY_BUFFER_STATE b = YY_CURRENT_BUFFER;
 
 			int yy_c_buf_p_offset =
 				(int) ((yy_c_buf_p) - b->yy_ch_buf);
@@ -1253,7 +1253,7 @@ static int yy_get_next_buffer (void)
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 	yy_is_jam = (yy_current_state == 61);
 
-		return yy_is_jam ? 0 : yy_current_state;
+	return yy_is_jam ? 0 : yy_current_state;
 }
 
     static void yyunput (int c, register char * yy_bp )
@@ -1341,7 +1341,7 @@ static int yy_get_next_buffer (void)
 				case EOB_ACT_END_OF_FILE:
 					{
 					if ( yywrap( ) )
-						return EOF;
+						return 0;
 
 					if ( ! (yy_did_buffer_switch_on_eof) )
 						YY_NEW_FILE;
@@ -1477,6 +1477,10 @@ static void yy_load_buffer_state  (void)
 	yyfree((void *) b  );
 }
 
+#ifndef __cplusplus
+extern int isatty (int );
+#endif /* __cplusplus */
+    
 /* Initializes or reinitializes a buffer.
  * This function is sometimes called more than once on the same buffer,
  * such as during a yyrestart() or at EOF.
@@ -1681,8 +1685,8 @@ YY_BUFFER_STATE yy_scan_string (yyconst char * yystr )
 
 /** Setup the input buffer state to scan the given bytes. The next call to yylex() will
  * scan from a @e copy of @a bytes.
- * @param yybytes the byte buffer to scan
- * @param _yybytes_len the number of bytes in the buffer pointed to by @a bytes.
+ * @param bytes the byte buffer to scan
+ * @param len the number of bytes in the buffer pointed to by @a bytes.
  * 
  * @return the newly allocated buffer state object.
  */
@@ -1690,8 +1694,7 @@ YY_BUFFER_STATE yy_scan_bytes  (yyconst char * yybytes, yy_size_t  _yybytes_len 
 {
 	YY_BUFFER_STATE b;
 	char *buf;
-	yy_size_t n;
-	int i;
+	yy_size_t n, i;
     
 	/* Get memory for full buffer, including space for trailing EOB's. */
 	n = _yybytes_len + 2;
@@ -1921,7 +1924,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 75 "StenC.l"
+#line 72 "StenC.l"
 
 
 
@@ -1943,7 +1946,7 @@ void count(){
 }
 
 
-
+/*
 
 
 int main(){
@@ -1958,3 +1961,4 @@ int main(){
     
     return  0;
 }
+*/

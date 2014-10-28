@@ -1,23 +1,27 @@
-#Makefile PROJ
-LEX  = flex
 YACC = yacc
+LEX  = lex
 CC = gcc
-OBJECT = main    #生成的目标文件
+OBJECT = main   
 
-$(OBJECT): lex.yy.o  yacc.tab.o
-	$(CC) lex.yy.o yac.tab.o -o $(OBJECT)
+$(OBJECT): lex.yy.o  y.tab.o
+	$(CC) -o $(OBJECT) y.tab.o lex.yy.o  -ll -ly
 
-lex.yy.o : lex.yy.c yacc.tab.h
-	$(CC) -c yacc.tab.c
 
-yacc.tab.o : yacc.tab.c 
-	$(CC) -c yacc.tab.c
+y.tab.o : y.tab.c y.tab.h
+	$(CC) -c y.tab.c 
 
-yacc.tab.c yacc.tab.h : yacc.y
-	$(YACC) -d yacc.y
+
+y.tab.c y.tab.h : StenC.y
+	$(YACC) -d StenC.y
+
 
 lex.yy.c : StenC.l
 	$(LEX) StenC.l
+
+
+lex.yy.o : lex.yy.c y.tab.h
+	$(CC) -c lex.yy.c 
+
 
 clean : 
 	@rm -f $(OBJECT) *.o
