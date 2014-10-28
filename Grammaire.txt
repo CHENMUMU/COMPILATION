@@ -1,0 +1,86 @@
+Grammaire du StenC:
+
+<program>         ->    <statement_list> MAIN <statement_list> <function_list> RETURN
+
+<statement_list>  ->    <statement> <statement_list>
+		      | NULL
+
+<statement>       ->    CONST INT <statement>
+		      |	ID = <expression>
+		      | STENCIL <id_stencil> = <expr_table>
+		      | INT ID <id_list>
+		      | ID ’[’ NUMBER ‘]’ ‘[‘ NUMBER ‘]’
+
+<id_stencil>      ->    ID ‘{‘ ENTIER ‘,’ ENTIER ‘}’    //第一个entier: distance de voisinage;  第二个entier: nombre de dimension du stencil
+
+<expr_table>      ->    ‘{’ <table> <table_list> ‘}’
+<table>           ->    ‘{’ ENTIER ‘,’ ENTIER ‘,’  ENTIER ‘}’
+<table_list>      ->    ’,’ <table_list>
+		      | NULL
+
+<id_list>         ->    ‘,’ID <id_list>
+		      | NULL	
+
+<function_list>   ->    <function> <function_list>
+		      | NULL
+
+<function>        ->    <function_stencil>
+		      | <function_for> 
+		      | <function_while>
+		      | <function_cond>
+		      
+
+
+<function_stencil>->    ID ‘$’ <statement> ‘,’ NUMBER
+
+<function_for>    ->    FOR ‘(’ <exp_for> ‘)’ ‘{’  <function_list>  ‘}’
+	   
+<exp_for>         ->    <exp_equal> ‘;’ <exp_compare>  ‘;’ <exp_add>
+		      | <exp_equal> ‘;’ <exp_compare>  ‘;’ <exp_less>
+
+
+<function_while>   ->   WHILE ‘(’ <expression> ‘)’ <function_list> 
+
+<function_cond>    ->   IF ‘(’ <expression> ‘)’ <function_list>  ELSE <function_list>
+		      | IF ‘(’ <expression> ‘)’ <function_list>   
+		      
+
+
+<expression>      ->    ENTIER
+		      | ID
+		      | <exp_equal>
+		      | <exp_compare>
+		      | <exp_add>
+		      | <exp_less>
+		      | <exp_mul>
+		      | <exp_div>
+		      | <exp_function>      // 函数调用 
+
+<exp_list>        ->    <expression> <exp_list>
+		      | NULL
+
+<exp_equal>       ->    ID ‘=’ ENTIER
+		      | ID ‘==’ ID      // 我在这里添加了if语句中的”==”情况
+		      | NULL   // for循环中,条件允许为空
+
+<exp_compare>     ->    ID ‘<’ <expression>
+		      | ID ‘>’ <expression>
+		      | NULL
+
+<exp_add>         ->    ID ‘++’
+		      | <expression> ‘+’ <expression>
+		      | NULL
+
+<exp_less>         ->   ID ‘—-’
+		      | <expression> ‘-’ <expression>
+		      | NULL
+
+<exp_mul>         ->    <expression> ‘*’ <expression>
+
+<exp_div>         ->    <expression> ‘/’ <expression>
+
+<exp_function>     ->   FUNC_NAME ‘(’ <function_list> ‘)’   //FUNC_NAME : 用于一些C中已存在的函数直接调用 sqrt,pow .. 
+		      | <function_list>      //不确定,感觉有点多余
+
+
+
