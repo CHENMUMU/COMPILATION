@@ -7,7 +7,7 @@ $(OBJECT): lex.yy.o  y.tab.o
 	$(CC) -o $(OBJECT) y.tab.o lex.yy.o  -ll -ly
 
 
-y.tab.o : y.tab.c y.tab.h
+y.tab.o : y.tab.c y.tab.h 
 	$(CC) -c y.tab.c 
 
 
@@ -19,7 +19,7 @@ lex.yy.c : StenC.l
 	$(LEX) StenC.l
 
 
-lex.yy.o : lex.yy.c y.tab.h
+lex.yy.o : lex.yy.c y.tab.h 
 	$(CC) -c lex.yy.c 
 
 

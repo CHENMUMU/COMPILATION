@@ -1,41 +1,49 @@
 %{
-    
-    #include <math.h>
+    #include <string.h>
     #include <stdio.h>
     #include <stdlib.h>
+    #include <math.h>
     
     int yylex();
     void yyerror(char *);
     
 %}
 
-%token MAIN RETURN
-%token CONST ID NUMBER INT
-%token IF ELSE FOR WHILE
-%token STENCIL FUNC_NAME
-%token INC_OP DEC_OP EQ_OP
+%union
+{
+    int valeur;
+    char *string;
+
+}
+
+
+%token <valeur> NUMBER
+
+%type <valeur> expression_list
+%type <valeur> expression
+
+%left '+'
 
 
 %%
 program:
-          statement_list '\n' INT MAIN '('')''{' statement_list RETURN '0' ';' '}'
+          expression_list '\n'
         ;
 
-statement_list:
-          statement
-        | statement_list statement
-        ;
 
-statement:
-          CONST INT statement
-        | ID '=' expression ';'
+expression_list:
+            expression '+' expression {$$ = $1 + $3;printf("expression_list est: %d\n",$$);}
+          | expression '-' expression {$$ = $1 - $3;printf("expression_list est: %d\n",$$);}
+          | expression '*' expression {$$ = $1 * $3;printf("expression_list est: %d\n",$$);}
+          | expression '/' expression {$$ = $1 / $3;printf("expression_list est: %d\n",$$);}
         ;
 
 expression:
-          NUMBER
+          NUMBER     {$$ = $1;}
         ;
 
 %%
+
 
 int main(){
    /* FILE *file = fopen("Sobel.c","r");
