@@ -27,7 +27,7 @@ string \"[.]\"
 %%
 
 {entier}  			{yylval.valeur = atoi(yytext); return NUMBER;}
-
+{ident}             {yylval.string = yytext; return Ident;}
 
 "+"                 { return '+';}
 "-"                 { return '-';}
