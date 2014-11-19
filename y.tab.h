@@ -40,27 +40,33 @@
       know about them.  */
    enum yytokentype {
      NUMBER = 258,
-     Ident = 259
+     Ident = 259,
+     STENCIL = 260
    };
 #endif
 /* Tokens.  */
 #define NUMBER 258
 #define Ident 259
+#define STENCIL 260
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 32 "StenC.y"
+#line 18 "StenC.y"
 {
     int valeur;
     char *string;
-    struct node *n;
+    struct symbol* symbol;
+    struct codegen{
+        struct symbol* result;
+        struct quad* code;
+    }codegen;
     
 }
 /* Line 1529 of yacc.c.  */
-#line 64 "y.tab.h"
+#line 70 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

@@ -4,6 +4,7 @@
     #include <stdlib.h>
     #include <math.h>
     #include "y.tab.h"
+    #include "tabSymbol.h"
     
 %}
 
@@ -22,12 +23,13 @@ blank_chars ([ \f\r\t\v]+)
 
 string \"[.]\"                
 
-
+stencil \\Stencil
 
 %%
 
 {entier}  			{yylval.valeur = atoi(yytext); return NUMBER;}
 {ident}             {yylval.string = yytext; return Ident;}
+{stencil}           {printf("stencil\n");return STENCIL;}
 
 "+"                 { return '+';}
 "-"                 { return '-';}
