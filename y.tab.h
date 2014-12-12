@@ -41,20 +41,22 @@
    enum yytokentype {
      NUMBER = 258,
      Ident = 259,
-     STENCIL = 260
+     STENCIL = 260,
+     ASSIGN = 261
    };
 #endif
 /* Tokens.  */
 #define NUMBER 258
 #define Ident 259
 #define STENCIL 260
+#define ASSIGN 261
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 18 "StenC.y"
+#line 19 "StenC.y"
 {
     int valeur;
     char *string;
@@ -66,7 +68,7 @@ typedef union YYSTYPE
     
 }
 /* Line 1529 of yacc.c.  */
-#line 70 "y.tab.h"
+#line 72 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

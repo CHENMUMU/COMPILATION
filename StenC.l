@@ -6,6 +6,8 @@
     #include "y.tab.h"
     #include "tabSymbol.h"
     
+    struct symbol *tds;
+    
 %}
 
 
@@ -28,14 +30,25 @@ stencil \\Stencil
 %%
 
 {entier}  			{yylval.valeur = atoi(yytext); return NUMBER;}
-{ident}             {yylval.string = yytext; return Ident;}
+
+{ident}             {yylval.string = yytext;
+                    struct symbol* id;
+                    id = symbol_lookup(tds,yytext);
+                    if(id == NULL)
+                    {
+                        symbol_add(&tds,yytext);
+                        
+                    }
+                    yylval.string = strdup(yytext);
+                     return Ident;}
+
 {stencil}           {printf("stencil\n");return STENCIL;}
 
 "+"                 { return '+';}
 "-"                 { return '-';}
 "*"                 { return '*';}
 "/"                 { return '/';}
-"="                 { return '=';}
+"="                 { return ASSIGN;}
 
 "("                 { return '(';}
 ")"                 { return ')';}

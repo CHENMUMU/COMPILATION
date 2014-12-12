@@ -7,6 +7,16 @@
 
 static int symbol_temp_number = 0;
 
+
+void symbol_print(struct symbol* symbol) {
+    printf("Le table de symbol est: \n");
+    while (symbol != NULL) {
+        printf("id: %7s, isconstant: %d, value: %d\n",
+               symbol->identifier, symbol->isconstant, symbol->value);
+        symbol = symbol->next;
+    }
+}
+
 struct symbol* symbol_alloc() {
     struct symbol* new;
     new = (struct symbol*)malloc(sizeof(struct symbol));
@@ -36,6 +46,8 @@ struct symbol* symbol_lookup(struct symbol* table, char* identifier) {
         table = table->next;
     }
     return NULL;
+    
+
 }
 
 void symbol_add(struct symbol** table, char* identifier) {
@@ -51,15 +63,13 @@ void symbol_add(struct symbol** table, char* identifier) {
         scan->next = symbol_alloc();
         scan->next->identifier = strdup(identifier);
     }
+    symbol_print(*table);
 }
 
-void symbol_print(struct symbol* symbol) {
-    while (symbol != NULL) {
-        printf("id: %7s, isconstant: %d, value: %d\n",
-               symbol->identifier, symbol->isconstant, symbol->value);
-        symbol = symbol->next;
-    }
+struct symbol* symbol_replace(struct symbol* source, struct symbol* cible) {
+    cible -> value = source -> value;
 }
+
 /*
 
 int main(){
